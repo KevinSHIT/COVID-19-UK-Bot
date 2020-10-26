@@ -42,7 +42,10 @@ namespace COVID_19_UK_Bot
                 case "/ukcovid":
                     await GetUkCovid19Info(message);
                     break;
-
+                case "/queen":
+                case "/queen@Covid19UkBot":
+                    await GetQueenSpeech(message);
+                    break;
                 default:
                     await Usage(message);
                     break;
@@ -54,7 +57,19 @@ namespace COVID_19_UK_Bot
                 
                 await _bot.SendTextMessageAsync(
                     chatId: message.Chat.Id,
-                    text: await CovidApi.AsyncGetMsgWithLatestDataByNation(CovidApi.Location.UnitedKingdom),
+                    text: await CovidApi.AsyncGetMsgWithLatestDataByNation(),
+                    replyMarkup: new ReplyKeyboardRemove()
+                );
+            }
+            
+            static async Task GetQueenSpeech(Message message)
+            {
+                await _bot.SendChatActionAsync(message.Chat.Id, ChatAction.Typing);
+                
+                await _bot.SendTextMessageAsync(
+                    chatId: message.Chat.Id,
+                    text: "🇬🇧 We will succeed and that success will belong to every one of us. --Elizabeth II\n" +
+                          "https://www.youtube.com/watch?v=2klmuggOElE",
                     replyMarkup: new ReplyKeyboardRemove()
                 );
             }
@@ -62,7 +77,8 @@ namespace COVID_19_UK_Bot
             static async Task Usage(Message message)
             {
                 const string usage = "Usage:\n" +
-                                     "/ukcovid  - Get 🇬🇧 COVID-19 Information";
+                                     "/ukcovid - Get 🇬🇧 COVID-19 Information\n" +
+                                     "/queen - Get queen's speech";
                 await _bot.SendTextMessageAsync(
                     chatId: message.Chat.Id,
                     text: usage,

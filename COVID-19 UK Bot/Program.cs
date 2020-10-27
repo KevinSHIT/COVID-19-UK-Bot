@@ -63,6 +63,10 @@ namespace COVID_19_UK_Bot
             var message = messageEventArgs.Message;
             if (message == null || message.Type != MessageType.Text)
                 return;
+            
+            // Prevent reply
+            if (!message.Text.StartsWith("/"))
+                return;
 
             switch (message.Text.Split(' ').First())
             {

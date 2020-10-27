@@ -123,7 +123,7 @@ namespace COVID_19_UK_Bot
                 });
                 await _bot.SendTextMessageAsync(
                     chatId: message.Chat.Id,
-                    text: "🇬🇧 Choose you nation",
+                    text: "🇬🇧 Choose your nation",
                     replyMarkup: inlineKeyboard
                 );
             }

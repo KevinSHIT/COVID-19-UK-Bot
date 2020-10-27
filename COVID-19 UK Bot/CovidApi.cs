@@ -21,7 +21,7 @@ namespace COVID_19_UK_Bot
         {
             var filter = "filters=areaType=nation;areaName=";
             var structure =
-                "structure=%7B%22date%22:%22date%22,%22areaName%22:%22areaName%22,%22areaCode%22:%22areaCode%22,%22newCasesByPublishDate%22:%22newCasesByPublishDate%22,%22cumCasesByPublishDate%22:%22cumCasesByPublishDate%22,%22newDeathsByDeathDate%22:%22newDeathsByDeathDate%22,%22cumDeathsByDeathDate%22:%22cumDeathsByDeathDate%22%7D&format=json&page=1";
+                "structure=%7b%22date%22%3a%22date%22%2c%22areaName%22%3a%22areaName%22%2c%22areaCode%22%3a%22areaCode%22%2c%22newCasesByPublishDate%22%3a%22newCasesByPublishDate%22%2c%22cumCasesByPublishDate%22%3a%22cumCasesByPublishDate%22%2c%22newDeaths28DaysByPublishDate%22%3a%22newDeaths28DaysByPublishDate%22%2c%22cumDeaths28DaysByPublishDate%22%3a%22cumDeaths28DaysByPublishDate%22%7d";
             // Change filter
             switch (location)
             {
@@ -53,7 +53,9 @@ namespace COVID_19_UK_Bot
                        $"Location: {ja[0]["areaName"]}\n" +
                        $"Date: {ja[0]["date"]}\n" +
                        $"New Cases: {ja[0]["newCasesByPublishDate"]}\n" +
-                       $"Total Cases: {ja[0]["cumCasesByPublishDate"]}";
+                       $"Total Cases: {ja[0]["cumCasesByPublishDate"]}\n" +
+                       $"New deaths in 28 days positive: {ja[0]["newDeaths28DaysByPublishDate"]}\n" +
+                       $"Total deaths in 28 days positive: {ja[0]["cumDeaths28DaysByPublishDate"]}";
             }
             catch
             {

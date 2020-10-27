@@ -12,6 +12,7 @@ namespace COVID_19_UK_Bot
     static class Program
     {
         private static TelegramBotClient _bot;
+
         public static async Task Main()
         {
             _bot = new TelegramBotClient(Configuration.BotToken);
@@ -54,18 +55,18 @@ namespace COVID_19_UK_Bot
             static async Task GetUkCovid19Info(Message message)
             {
                 await _bot.SendChatActionAsync(message.Chat.Id, ChatAction.Typing);
-                
+
                 await _bot.SendTextMessageAsync(
                     chatId: message.Chat.Id,
                     text: await CovidApi.AsyncGetMsgWithLatestDataByNation(),
                     replyMarkup: new ReplyKeyboardRemove()
                 );
             }
-            
+
             static async Task GetQueenSpeech(Message message)
             {
                 await _bot.SendChatActionAsync(message.Chat.Id, ChatAction.Typing);
-                
+
                 await _bot.SendTextMessageAsync(
                     chatId: message.Chat.Id,
                     text: "🇬🇧 We will succeed and that success will belong to every one of us. --Elizabeth II\n" +

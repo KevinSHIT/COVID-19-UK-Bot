@@ -10,7 +10,7 @@
         public static string ToBritishStyleDate(this string s)
         {
             var v = s.Trim().Split('-');
-            return $"{v[0]}/{v[1]}/{v[2]}";
+            return $"{v[2]}/{v[1]}/{v[0]}";
         }
     }
 }

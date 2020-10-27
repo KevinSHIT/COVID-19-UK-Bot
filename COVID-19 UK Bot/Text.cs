@@ -4,6 +4,7 @@
     {
         public const string USAGE = "Usage:\n" +
                                     "/ukcovid - Get 🇬🇧 COVID-19 Information\n" +
+                                    "/nation - Get 🇬🇧 national information\n" +
                                     "/queen - Get queen's speech";
 
         public const string QUEEN_SAYS =

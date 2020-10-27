@@ -34,7 +34,7 @@ Source code of [@Covid19UkBot](https://t.me/Covid19UkBot). A telegram bot to get
 
 ## LICENSE
 
-This bot is licensed by MIT.
+This bot is licensed under MIT.
 
 ```
 MIT License

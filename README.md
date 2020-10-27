@@ -2,7 +2,7 @@
 
 > 🇬🇧 I hope in the years to come everyone will be able to take pride in how they responded to this challenge. And those who come after us will say that the Britons of this generation were as strong as any. That the attributes of self-discipline, of quiet good-humoured resolve and of fellow-feeling still characterise this country. The pride in who we are is not a part of our past, it defines our present and our future. -- Queen Elizabeth II
 
-Source code of [@Covid19Bot](https://t.me/Covid19UkBot). A telegram bot to get the UK COVID-19 information.
+Source code of [@Covid19UkBot](https://t.me/Covid19UkBot). A telegram bot to get the UK COVID-19 information.
 
 ## Functions finished
 

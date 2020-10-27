@@ -53,36 +53,24 @@ namespace COVID_19_UK_Bot
             }
 
             static async Task GetUkCovid19Info(Message message)
-            {
-                await _bot.SendChatActionAsync(message.Chat.Id, ChatAction.Typing);
-
-                await _bot.SendTextMessageAsync(
-                    chatId: message.Chat.Id,
-                    text: await CovidApi.AsyncGetMsgWithLatestDataByNation(),
-                    replyMarkup: new ReplyKeyboardRemove()
+                => await SendMsg(
+                    message: message,
+                    text: await CovidApi.AsyncGetMsgWithLatestDataByNation()
                 );
-            }
 
             static async Task GetQueenSpeech(Message message)
+                => await SendMsg(message, Text.QUEEN_SPEECH_MSG);
+
+            static async Task Usage(Message message)
+                => await SendMsg(message, Text.USAGE);
+
+            static async Task SendMsg(Message message, string text)
             {
                 await _bot.SendChatActionAsync(message.Chat.Id, ChatAction.Typing);
 
                 await _bot.SendTextMessageAsync(
                     chatId: message.Chat.Id,
-                    text: "🇬🇧 We will succeed and that success will belong to every one of us. --Elizabeth II\n" +
-                          "https://www.youtube.com/watch?v=2klmuggOElE",
-                    replyMarkup: new ReplyKeyboardRemove()
-                );
-            }
-
-            static async Task Usage(Message message)
-            {
-                const string usage = "Usage:\n" +
-                                     "/ukcovid - Get 🇬🇧 COVID-19 Information\n" +
-                                     "/queen - Get queen's speech";
-                await _bot.SendTextMessageAsync(
-                    chatId: message.Chat.Id,
-                    text: usage,
+                    text: text,
                     replyMarkup: new ReplyKeyboardRemove()
                 );
             }

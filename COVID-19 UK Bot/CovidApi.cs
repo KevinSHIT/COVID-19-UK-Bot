@@ -43,13 +43,13 @@ namespace COVID_19_UK_Bot
             }
 
             if (string.IsNullOrWhiteSpace(response))
-                return "Oops. API broken. Please contact author(@NodaYojiro)";
+                return Text.SOMETHING_WRONG;
             var jo = JObject.Parse(response);
             var ja = jo["data"] as JArray;
 
             try
             {
-                return $"🇬🇧 We will succeed and that success will belong to every one of us. --Elizabeth II\n" +
+                return $"{Text.QUEEN_SAYS}\n" +
                        $"Location: {ja[0]["areaName"]}\n" +
                        $"Date: {ja[0]["date"]}\n" +
                        $"New Cases: {ja[0]["newCasesByPublishDate"]}\n" +
@@ -59,14 +59,14 @@ namespace COVID_19_UK_Bot
             }
             catch
             {
-                return "Oops. API broken. Please contact author(@NodaYojiro)";
+                return Text.SOMETHING_WRONG;
             }
         }
 
-        public static string GetUrl(string filter, string structure)
+        private static string GetUrl(string filter, string structure)
             => "https://api.coronavirus.data.gov.uk/v1/data?" + filter + "&" + structure;
 
-        public static async Task<string> AsyncGet(string url)
+        private static async Task<string> AsyncGet(string url)
         {
             try
             {

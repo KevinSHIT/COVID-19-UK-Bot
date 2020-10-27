@@ -51,7 +51,7 @@ namespace COVID_19_UK_Bot
             {
                 return $"{Text.QUEEN_SAYS}\n" +
                        $"Location: {ja[0]["areaName"]}\n" +
-                       $"Date: {ja[0]["date"]}\n" +
+                       $"Date: {ja[0]["date"].ToString().ToBritishStyleDate()}\n" +
                        $"New Cases: {ja[0]["newCasesByPublishDate"]}\n" +
                        $"Total Cases: {ja[0]["cumCasesByPublishDate"]}\n" +
                        $"New deaths in 28 days positive: {ja[0]["newDeaths28DaysByPublishDate"]}\n" +

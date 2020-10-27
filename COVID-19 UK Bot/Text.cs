@@ -5,7 +5,7 @@
         public const string USAGE = "Usage:\n" +
                                     "/ukcovid - Get 🇬🇧 COVID-19 Information\n" +
                                     "/nation - Get 🇬🇧 national information\n" +
-                                    "/queen - Get queen's speech";
+                                    "/queen - Get ♕ queen's speech";
 
         public const string QUEEN_SAYS =
             "🇬🇧 We will succeed and that success will belong to every one of us. --Elizabeth II";

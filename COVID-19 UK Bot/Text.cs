@@ -13,5 +13,9 @@
                                                "https://www.youtube.com/watch?v=2klmuggOElE";
 
         public const string SOMETHING_WRONG = "Oops. API broken. Please contact author(@NodaYojiro)";
+
+        public const string UNKNOWN_LOCATION = "Oops. Unknow location.";
+
+        public const string EMPTY_RESPONSE = "Oops. Response is empty. Please contact author(@NodaYojiro)";
     }
 }

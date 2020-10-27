@@ -72,7 +72,7 @@ namespace COVID_19_UK_Bot
                 default:
                     return Text.UNKNOWN_LOCATION;
             }
-            Console.WriteLine(filter);
+            // Console.WriteLine(filter);
 
             filter += ";date=";
             var tmpFilter = filter + DateTime.UtcNow.ToString("yyyy-MM-dd");
@@ -98,9 +98,10 @@ namespace COVID_19_UK_Bot
                        $"New deaths in 28 days positive: {ja[0]["newDeaths28DaysByPublishDate"]}\n" +
                        $"Total deaths in 28 days positive: {ja[0]["cumDeaths28DaysByPublishDate"]}";
             }
-            catch(Exception ex)
+            catch (Exception ex)
             {
-                return Text.SOMETHING_WRONG + "\n" + ex.ToString();
+                Log.e(ex.ToString());
+                return Text.SOMETHING_WRONG + "\n" + ex;
             }
         }
 
@@ -117,6 +118,7 @@ namespace COVID_19_UK_Bot
                 request.Accept =
                     "application/json; application/xml; text/csv; application/vnd.PHE-COVID19.v1+json; application/vnd.PHE-COVID19.v1+xml";
                 request.AutomaticDecompression = DecompressionMethods.GZip | DecompressionMethods.Deflate;
+                request.Timeout = 5000;
                 WebResponse responseObject =
                     await Task<WebResponse>.Factory.FromAsync(request.BeginGetResponse, request.EndGetResponse,
                         request);
@@ -124,8 +126,9 @@ namespace COVID_19_UK_Bot
                 var sr = new StreamReader(responseStream);
                 return await sr.ReadToEndAsync();
             }
-            catch
+            catch (Exception ex)
             {
+                Log.e(ex.ToString());
                 return string.Empty;
             }
         }

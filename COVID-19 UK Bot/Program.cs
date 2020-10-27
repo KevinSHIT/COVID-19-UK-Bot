@@ -27,10 +27,11 @@ namespace COVID_19_UK_Bot
             _bot.OnCallbackQuery += BotOnCallbackQueryReceived;
 
             _bot.StartReceiving(Array.Empty<UpdateType>());
-            Console.WriteLine($"Start listening for @{me.Username}");
+            Log.i($"Start listening for @{me.Username}");
 
             Console.ReadLine();
             _bot.StopReceiving();
+            Log.i("Stop receiving.");
         }
 
         static async void BotOnCallbackQueryReceived(object sender, CallbackQueryEventArgs callbackQueryEventArgs)
@@ -38,7 +39,6 @@ namespace COVID_19_UK_Bot
             var callbackQuery = callbackQueryEventArgs.CallbackQuery;
 
             var message = callbackQuery.Message;
-            await _bot.SendChatActionAsync(message.Chat.Id, ChatAction.Typing);
 
             await _bot.AnswerCallbackQueryAsync(
                 callbackQueryId: callbackQuery.Id,
@@ -48,6 +48,9 @@ namespace COVID_19_UK_Bot
                 message.Chat.Id,
                 message.MessageId,
                 $"🇬🇧 Your nation is {callbackQuery.Data}. Waiting...");
+
+            await _bot.SendChatActionAsync(message.Chat.Id, ChatAction.Typing);
+
             await _bot.EditMessageTextAsync(
                 message.Chat.Id,
                 message.MessageId,
@@ -65,37 +68,37 @@ namespace COVID_19_UK_Bot
             {
                 case "/ukcovid@Covid19UkBot":
                 case "/ukcovid":
-                    await GetUkCovid19Info(message);
+                    await _bot.SendChatActionAsync(message.Chat.Id, ChatAction.Typing);
+                    await SendUkCovid19Info(message);
                     break;
                 case "/queen":
                 case "/queen@Covid19UkBot":
-                    await GetQueenSpeech(message);
+                    await _bot.SendChatActionAsync(message.Chat.Id, ChatAction.Typing);
+                    await SendQueenSpeech(message);
                     break;
                 case "/nation":
                 case "/nation@Covid19UkBot":
                     await SendNationInlineKeyboard(message);
                     break;
                 default:
-                    await Usage(message);
+                    await SendUsage(message);
                     break;
             }
 
-            static async Task GetUkCovid19Info(Message message)
+            static async Task SendUkCovid19Info(Message message)
                 => await SendMsg(
                     message: message,
                     text: await CovidApi.AsyncGetMsgWithLatestDataByNation()
                 );
 
-            static async Task GetQueenSpeech(Message message)
+            static async Task SendQueenSpeech(Message message)
                 => await SendMsg(message, Text.QUEEN_SPEECH_MSG);
 
-            static async Task Usage(Message message)
+            static async Task SendUsage(Message message)
                 => await SendMsg(message, Text.USAGE);
 
             static async Task SendMsg(Message message, string text)
             {
-                await _bot.SendChatActionAsync(message.Chat.Id, ChatAction.Typing);
-
                 await _bot.SendTextMessageAsync(
                     chatId: message.Chat.Id,
                     text: text,
@@ -105,20 +108,13 @@ namespace COVID_19_UK_Bot
 
             static async Task SendNationInlineKeyboard(Message message)
             {
-                await _bot.SendChatActionAsync(message.Chat.Id, ChatAction.Typing);
-
-                // Simulate longer running task
-                await Task.Delay(500);
-
                 var inlineKeyboard = new InlineKeyboardMarkup(new[]
                 {
-                    // first row
                     new[]
                     {
                         InlineKeyboardButton.WithCallbackData("England", "England"),
                         InlineKeyboardButton.WithCallbackData("Scotland", "Scotland"),
                     },
-                    // second row
                     new[]
                     {
                         InlineKeyboardButton.WithCallbackData("Northern Ireland", "Northern Ireland"),
@@ -135,10 +131,9 @@ namespace COVID_19_UK_Bot
 
         private static void BotOnReceiveError(object sender, ReceiveErrorEventArgs receiveErrorEventArgs)
         {
-            Console.WriteLine("Received error: {0} — {1}",
-                receiveErrorEventArgs.ApiRequestException.ErrorCode,
-                receiveErrorEventArgs.ApiRequestException.Message
-            );
+            Log.e($"{receiveErrorEventArgs.ApiRequestException.ErrorCode.ToString()}" +
+                  " — " +
+                  $"{receiveErrorEventArgs.ApiRequestException.Message}");
         }
     }
 }
